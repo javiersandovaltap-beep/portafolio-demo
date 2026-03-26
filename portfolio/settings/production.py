@@ -3,7 +3,7 @@ import os
 from .base import *
 
 DEBUG = False
-
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '').split(',')
 # Lee la URL de tu archivo .env
 DATABASES = {
     'default': dj_database_url.config(
@@ -12,3 +12,8 @@ DATABASES = {
         ssl_require=True
     )
 }
+# Seguridad HTTPS
+SECURE_SSL_REDIRECT = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True

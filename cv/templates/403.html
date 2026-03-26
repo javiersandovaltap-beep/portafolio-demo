@@ -1,0 +1,17 @@
+<!-- templates/403.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5 text-center" style="padding-top: 80px;">
+    
+    <h1 class="fw-bold" style="font-size: 8rem; color: var(--brand);">403</h1>
+    <h2 class="mb-3" style="color: var(--text-primary);">Acceso denegado</h2>
+    <p class="text-muted mb-5">
+        No tienes los permisos necesarios para ver esta página.
+    </p>
+    <a href="{% url 'inicio' %}" class="btn btn-primary px-4 py-2">
+        Volver al CV
+    </a>
+
+</div>
+{% endblock %}

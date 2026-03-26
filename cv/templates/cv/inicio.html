@@ -1,0 +1,173 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row justify-content-between layout-brittany">
+
+    <div class="col-lg-5 col-md-12 col-izq mb-5 mb-lg-0">
+        <div class="sticky-top pt-4 sticky-content">
+            <h1 class="fw-bold text-primary mb-2" style="font-size: 2.5rem;">{{ nombre }}</h1>
+            <h3 class="fs-5 text-dark mb-3">{{ profesion }}</h3>
+            <p class="text-muted mb-4 pe-lg-4">{{ sobre_mi }}</p>
+
+            <nav class="nav flex-row flex-lg-column lateral-nav mb-4 mb-lg-0 gap-3 gap-lg-0">
+                <a class="nav-link px-0" href="#about">SOBRE MÍ</a>
+                <a class="nav-link px-0" href="#experiencia">EXPERIENCIA</a>
+                <a class="nav-link px-0" href="#formacion">FORMACIÓN</a>
+                <a class="nav-link px-0" href="#proyectos">PROYECTOS</a>
+            </nav>
+
+            <div class="mt-4 mb-auto">
+                <a href="{% url 'contacto' %}" class="btn btn-primary fw-bold mb-2">CONTÁCTAME</a>
+                <br>
+                {% if user.is_authenticated %}
+                    <form method="POST" action="{% url 'logout' %}" class="d-inline">
+                        {% csrf_token %}
+                        <button type="submit" class="btn btn-sm btn-outline-danger">Cerrar sesión</button>
+                    </form>
+                {% else %}
+                    <a href="{% url 'login' %}" class="btn btn-sm btn-outline-secondary">Login Admin</a>
+                {% endif %}
+            </div>
+
+            <div class="pt-5 pb-4">
+                <a href="{{ github }}" target="_blank" class="text-muted text-decoration-none me-3">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.012 8.012 0 0 0 16 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                </a>
+                <a href="mailto:{{ email }}" class="text-muted text-decoration-none">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 16 16">
+                        <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4Zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2Zm13 2.383-4.708 2.825L15 11.105V5.383Zm-.034 6.876-5.64-3.471L8 9.583l-1.326-.795-5.64 3.47A1 1 0 0 0 2 13h12a1 1 0 0 0 .966-.741ZM1 11.105l4.708-2.825L1 5.383v5.722Z"/>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-lg-6 col-md-12 col-der pt-4">
+
+        <section id="about" class="mb-5 pb-5">
+            <p class="text-muted" style="text-align: justify; word-wrap: break-word;">
+                Hola. Me gusta crear cosas para la web. Mi interés en el desarrollo web comenzó con la curiosidad de cómo funcionan las cosas en internet.
+            </p>
+            <p class="text-muted" style="text-align: justify; word-wrap: break-word;">
+                Actualmente estoy enfocado en construir experiencias digitales accesibles y de alto rendimiento.
+            </p>
+        </section>
+
+        <section id="experiencia" class="mb-5 pb-5">
+            <h4 class="mb-4 d-lg-none fw-bold text-dark">EXPERIENCIA</h4>
+            {% if perms.cv.add_experiencia %}
+                <div class="mb-4">
+                    <a href="{% url 'agregar_experiencia' %}" class="btn btn-primary btn-sm fw-bold">+ Añadir Experiencia</a>
+                </div>
+            {% endif %}
+            {% for exp in experiencia %}
+                <div class="card bg-transparent border-0 mb-4 p-lg-3 p-0 rounded">
+                    <div class="row g-0">
+                        <div class="col-12 col-lg-3 mb-2 mb-lg-0">
+                            <small class="text-muted fw-bold">{{ exp.periodo }}</small>
+                        </div>
+                        <div class="col-12 col-lg-9">
+                            <h5 class="fw-bold mb-1" style="color: var(--text-primary);">
+                                {{ exp.puesto }}
+                                {% if perms.cv.change_experiencia %}
+                                    <a href="{% url 'editar_experiencia' exp.pk %}" class="btn btn-sm btn-outline-secondary ms-2">Editar</a>
+                                {% endif %}
+                            </h5>
+                            <p class="text-muted small mt-2">{{ exp.descripcion }}</p>
+                            <div class="d-flex flex-wrap gap-2 mt-3">
+                                {% for hab in exp.listahabilidades %}
+                                    <span class="badge rounded-pill bg-primary">{{ hab }}</span>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-muted">Aún no hay experiencia registrada.</p>
+            {% endfor %}
+        </section>
+
+        <section id="formacion" class="mb-5 pb-5">
+            <h4 class="mb-4 d-lg-none fw-bold text-dark">FORMACIÓN</h4>
+            {% if perms.cv.add_formacion %}
+                <div class="mb-4">
+                    <a href="{% url 'agregar_formacion' %}" class="btn btn-primary btn-sm fw-bold">+ Añadir Formación</a>
+                </div>
+            {% endif %}
+            {% for edu in formacion %}
+                <div class="card bg-transparent border-0 mb-4 p-lg-3 p-0 rounded">
+                    <div class="row g-0">
+                        <div class="col-12 col-lg-3 mb-2 mb-lg-0">
+                            <small class="text-muted fw-bold">{{ edu.periodo }}</small>
+                        </div>
+                        <div class="col-12 col-lg-9">
+                            <h5 class="fw-bold mb-1" style="color: var(--text-primary);">
+                                {{ edu.titulo }}
+                                {% if perms.cv.change_formacion %}
+                                    <a href="{% url 'editar_formacion' edu.pk %}" class="btn btn-sm btn-outline-secondary ms-2">Editar</a>
+                                {% endif %}
+                            </h5>
+                            <h6 class="mb-2 text-secondary">{{ edu.institucion }}</h6>
+                            <p class="text-muted small mt-2">{{ edu.descripcion }}</p>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-muted">Aún no hay formación registrada.</p>
+            {% endfor %}
+        </section>
+
+        <section id="proyectos" class="mb-5 pb-5">
+            <h4 class="mb-4 d-lg-none fw-bold text-dark">PROYECTOS</h4>
+            {% if perms.cv.add_proyecto %}
+                <div class="mb-4">
+                    <a href="{% url 'agregar_proyecto' %}" class="btn btn-primary btn-sm fw-bold">+ Añadir Proyecto</a>
+                </div>
+            {% endif %}
+            {% for proyecto in proyectos %}
+                <div class="card bg-transparent border-0 mb-5 p-lg-3 p-0 rounded">
+                    <div class="row g-4">
+                        <div class="col-12 col-lg-4">
+                            {% if proyecto.imagen %}
+                                <img src="{{ proyecto.imagen.url }}" alt="{{ proyecto.titulo }}" class="img-fluid rounded shadow-sm">
+                            {% else %}
+                                <div class="rounded border d-flex align-items-center justify-content-center bg-light" style="height: 150px;">
+                                    <small class="text-muted">Sin imagen</small>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="col-12 col-lg-8">
+                            <h5 class="fw-bold mb-2" style="color: var(--text-primary);">
+                                {{ proyecto.titulo }}
+                                {% if perms.cv.change_proyecto %}
+                                    <a href="{% url 'editar_proyecto' proyecto.pk %}" class="btn btn-sm btn-outline-secondary ms-2">Editar</a>
+                                {% endif %}
+                            </h5>
+                            <p class="text-muted small mb-3">{{ proyecto.descripcion }}</p>
+                            <div class="d-flex flex-wrap gap-2 mb-3">
+                                {% for tec in proyecto.listatecnologias %}
+                                    <span class="badge rounded-pill bg-secondary">{{ tec }}</span>
+                                {% endfor %}
+                            </div>
+                            <div class="d-flex gap-3">
+                                {% if proyecto.enlace_github %}
+                                    <a href="{{ proyecto.enlace_github }}" target="_blank" class="text-decoration-none text-secondary small fw-bold">Ver Código</a>
+                                {% endif %}
+                                {% if proyecto.enlace_sitio %}
+                                    <a href="{{ proyecto.enlace_sitio }}" target="_blank" class="text-decoration-none text-primary small fw-bold">Visitar Sitio</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% empty %}
+                <p class="text-muted">Aún no hay proyectos registrados.</p>
+            {% endfor %}
+        </section>
+
+    </div>
+</div>
+{% endblock %}

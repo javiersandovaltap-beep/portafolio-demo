@@ -1,0 +1,26 @@
+# Ignorar archivos y carpetas específicos
+# Entorno virtual
+venv/
+
+# Base de datos local
+db.sqlite3
+
+# Archivos compilados de Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Archivos de sistema
+.DS_Store
+Thumbs.db
+
+# Variables de entorno
+.env
+
+# Archivos de VS Code
+.vscode/
+
+# Archivos de migraciones (opcional, se recomienda incluirlas)
+# */migrations/
+
+

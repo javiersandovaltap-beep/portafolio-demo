@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container my-5" style="padding-top: 100px;">
+    <div class="row justify-content-center">
+        <div class="col-md-5">
+            <div class="card shadow-sm border-0 p-4">
+                <h2 class="mb-4 text-center fw-bold text-primary">Iniciar Sesión</h2>
+                
+                {% if form.errors %}
+                    <div class="alert alert-danger text-center">
+                        Usuario o contraseña incorrectos. Intenta de nuevo.
+                    </div>
+                {% endif %}
+
+                <form method="POST">
+                    {% csrf_token %}
+                    <!-- 'next' guarda la URL a la que querías ir antes del login -->
+                    <input type="hidden" name="next" value="{{ next }}">
+                    
+                    <div class="mb-3">
+                        <label class="form-label fw-bold">Usuario</label>
+                        <input type="text" name="username" class="form-control" autofocus required>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="form-label fw-bold">Contraseña</label>
+                        <input type="password" name="password" class="form-control" required>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary w-100 fw-bold">Entrar</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

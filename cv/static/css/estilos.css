@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-base: #f3fafd;
+    --bg-surface: #ffffff;
+    --text-primary: #050315;
+    --text-muted: #5980bd;
+    --border: #a3c8ef;
+    --brand: #5980bd;
+    --brand-hover: #3d5e94;
+    --brand-tint: #e6f0fa;
+    --accent: #76b7ef;
+}
+
+body {
+    font-family: 'Noto Sans', sans-serif;
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    font-size: 16px;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 700;
+    color: var(--text-primary);
+    letter-spacing: -0.02em;
+}
+
+.card {
+    background-color: var(--bg-surface);
+    border: 1px solid rgba(163, 200, 239, 0.3);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(89, 128, 189, 0.08);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(89, 128, 189, 0.15);
+}
+
+.card-header {
+    background-color: var(--brand-tint) !important;
+    color: var(--brand) !important;
+    border-bottom: 1px solid var(--border);
+    border-radius: 12px 12px 0 0 !important;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: var(--brand);
+    border: none;
+    border-radius: 8px;
+    padding: 10px 24px;
+    font-weight: 500;
+    box-shadow: 0 4px 15px rgba(89, 128, 189, 0.3);
+    transition: all 0.2s ease;
+}
+
+.btn-primary:hover {
+    background-color: var(--brand-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(89, 128, 189, 0.4);
+}
+
+/* Menú lateral animado */
+.lateral-nav .nav-link {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.lateral-nav .nav-link::before {
+    content: "—";
+    margin-right: 10px;
+    letter-spacing: -2px;
+    color: transparent;
+    transition: all 0.3s ease;
+}
+
+.lateral-nav .nav-link:hover {
+    color: var(--text-primary);
+    transform: translateX(10px);
+}
+
+.lateral-nav .nav-link:hover::before {
+    color: var(--text-primary);
+}
+
+/* Efecto Hover en tarjetas de experiencia */
+.card-experiencia:hover {
+    background-color: var(--bg-surface) !important;
+    box-shadow: 0 4px 30px rgba(89, 128, 189, 0.1) !important;
+    cursor: pointer;
+}
+
+.card-experiencia:hover h5 {
+    color: var(--brand) !important;
+}
+
+/* Para pantallas móviles */
+@media (max-width: 992px) {
+    .sticky-content {
+        position: relative !important;
+        height: auto !important;
+        padding-bottom: 2rem;
+    }
+}
+
+@media (min-width: 992px) {
+    .sticky-content {
+        position: sticky;
+        top: 0;
+        max-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+    }
+}
+
+p, h1, h2, h3, h4, h5, h6 {
+    word-wrap: break-word;
+    overflow-wrap: break-word;
+}
+
+.form-control {
+    border-radius: 8px;
+    border: 1px solid rgba(163, 200, 239, 0.5);
+    padding: 10px 12px;
+    transition: all 0.2s ease;
+}
+
+.form-control:focus {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 0.2rem rgba(89, 128, 189, 0.25);
+}

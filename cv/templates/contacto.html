@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+{% block title %}Contacto - Mi Curriculum{% endblock %}
+{% block content %}
+
+<div class="container my-5 layout-brittany">
+    <div class="row justify-content-center">
+        <div class="col-lg-8 col-md-10">
+            <div class="mb-5 text-center">
+                <h2 class="display-6 fw-bold text-primary mb-3">Ponte en contacto</h2>
+                <p class="text-muted">¿Tienes alguna propuesta o proyecto en mente? Escribeme un mensaje.</p>
+            </div>
+            
+            <div class="card p-4 border-0" style="box-shadow: 0 4px 30px rgba(89, 128, 189, 0.15);">
+                <form method="POST" novalidate>
+                    {% csrf_token %}
+                    
+                    {% for field in form %}
+                    <div class="mb-4">
+                        <label for="{{ field.id_for_label }}" class="form-label fw-bold">{{ field.label }}</label>
+                        {{ field }}
+                        
+                        {% if field.errors %}
+                        <div class="text-danger mt-1 small">
+                            {% for error in field.errors %}
+                            {{ error }}
+                            {% endfor %}
+                        </div>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                    
+                    <div class="text-end mt-4">
+                        <a href="{% url 'inicio' %}" class="btn btn-outline-secondary me-2">Cancelar</a>
+                        <button type="submit" class="btn btn-primary px-5">Enviar Mensaje</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('input, select, textarea').forEach(function(element) {
+    if (!element.classList.contains('form-control')) {
+        element.classList.add('form-control');
+    }
+    element.style.borderColor = 'rgba(163, 200, 239, 0.5)';
+});
+</script>
+
+{% endblock %}

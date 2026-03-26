@@ -1,0 +1,29 @@
+[
+{
+  "model": "auth.user",
+  "pk": 1,
+  "fields": {
+    "password": "pbkdf2_sha256$1200000$zgoxlzBGgSYrRe2kyvIvbY$QH6VZvNAJQhZSXs8sfKD4u3tcorTDTGOOFQSM+ttWQw=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@demo.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2026-03-26T23:51:05.252Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "cv.perfil",
+  "pk": 1,
+  "fields": {
+    "nombre": "Javier Sandoval",
+    "profesion": "Fullstack Developer",
+    "bio": "Estudiante de Python/Django"
+  }
+}
+]

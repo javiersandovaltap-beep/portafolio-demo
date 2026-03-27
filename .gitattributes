@@ -1,0 +1,5 @@
+# .gitattributes — Forzar detección Python como lenguaje principal
+*.js linguist-vendored
+*.css linguist-vendored
+static/* linguist-vendored
+node_modules/ linguist-vendored
